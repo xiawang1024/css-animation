@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>慕课七夕主题</title>
+    <link rel='stylesheet' href='style.css' />
+    <link rel='stylesheet' href='pageA.css' />
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="Swipe.js"></script>
+</head>
+<style type="text/css">
+    .charector {
+        position: absolute;
+        left: 6%;
+        top: 55%;
+        width: 151px;
+        height: 291px;
+        background: url(http://img.mukewang.com/55ade248000198ae10550582.png) -0px -291px no-repeat;
+    }
+    
+    .slowWalk {
+        /* 填入动画样式规则 */
+        animation:person-slow 950ms infinite steps(1,start);
+        -webkit-animation:person-slow 950ms infinite steps(1,start);
+    }
+    .pausedWalk{
+    	-webkit-animation-play-state: paused;
+    	-o-animation-play-state: paused;
+    	animation-play-state:paused; 
+    }
+    /* 普通慢走 */
+    
+    @-webkit-keyframes person-slow {
+        0% {
+            background-position: -0px -291px;
+        }
+        25% {
+            background-position: -602px -0px;
+        }
+        50% {
+            background-position: -302px -291px;
+        }
+        75% {
+            background-position: -151px -291px;
+        }
+        100% {
+            background-position: -0px -291px;
+        }
+    }
+    
+    @-moz-keyframes person-slow {
+        0% {
+            background-position: -0px -291px;
+        }
+        25% {
+            background-position: -602px -0px;
+        }
+        50% {
+            background-position: -302px -291px;
+        }
+        75% {
+            background-position: -151px -291px;
+        }
+        100% {
+            background-position: -0px -291px;
+        }
+    }
+</style>
+
+<body>
+<div id='content'>
+    <ul class='content-wrap'>
+        <li>
+            <div class="a_background">
+                <div class="a_background_top"></div>
+                <div class="a_background_middle"></div>
+                <div class="a_background_botton"></div>
+            </div>
+        </li>
+        <li> 页面2 </li>
+        <li> 页面3 </li>
+    </ul>
+    <div id="boy" class="charector"></div>
+    <div class="button">
+        <button class="start">开始</button>
+        <button class="pause">暂停</button>
+    </div>
+</div>
+<script type="text/javascript">
+    var swipe = Swipe($("#content"));
+    
+    // 获取数据
+    var getValue = function(className) {
+        var $elem = $('' + className + '');
+        // 走路的路线坐标
+        return {
+            height: $elem.height(),
+            top: $elem.position().top
+        };
+    }
+    
+    // 路的Y轴
+    var pathY = function() {
+        var data = getValue('.a_background_middle');
+        return data.top + data.height / 2;
+    }();
+    
+    var $boy = $("#boy");
+    var boyHeight = $boy.height();
+    
+    // 修正小男孩的正确位置
+    $boy.css({
+        top: pathY - boyHeight + 25
+    });
+    
+    // ==========================
+    //     增加精灵动画
+    // ==========================
+    
+    $('.start').click(function(){
+        // 增加走路的CSS3关键帧规则
+        $boy.removeClass('pausedWalk');
+        $boy.addClass('slowWalk').animate({
+        	'left':$('#content').width()+'px'
+        },10000,'linear');
+    });
+    $('.pause').click(function(){
+    	var left = $boy.css('left');
+        // 强制做了一个改变目标left的处理
+        // 动画是要运行10秒,所以此时动画还是没有结束的 
+        // stop(stopAll,stopToEnd)可选的 stopAll 参数规定是否应该清除动画队列。默认是 false，即仅停止活动的动画，允许任何排入队列的动画向后执行。      
+        $boy.stop(true).css('left',left); 
+可选的 goToEnd 参数规定是否立即完成当前动画。默认是 false。
+        // 增加暂停的样式
+        // ?
+        $boy.addClass('pausedWalk');
+    	
+    })
+
+</script>
+</body>
+
+</html>
