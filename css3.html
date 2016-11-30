@@ -129,9 +129,9 @@
     	var left = $boy.css('left');
         // 强制做了一个改变目标left的处理
         // 动画是要运行10秒,所以此时动画还是没有结束的 
-        // stop(stopAll,stopToEnd)可选的 stopAll 参数规定是否应该清除动画队列。默认是 false，即仅停止活动的动画，允许任何排入队列的动画向后执行。      
+        // stop(stopAll,stopToEnd)可选的 stopAll 参数规定是否应该清除动画队列。默认是 false，即仅停止活动的动画，允许任何排入队列的动画向后执行。 可选的 goToEnd 参数规定是否立即完成当前动画。默认是 false。     
         $boy.stop(true).css('left',left); 
-可选的 goToEnd 参数规定是否立即完成当前动画。默认是 false。
+
         // 增加暂停的样式
         // ?
         $boy.addClass('pausedWalk');
